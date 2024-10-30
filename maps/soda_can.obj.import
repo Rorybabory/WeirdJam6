@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cdr88ivrlqufe"
+path="res://.godot/imported/soda_can.obj-67b2d8cccf7a0a1a1722a59aa5047956.mesh"
+
+[deps]
+
+files=["res://.godot/imported/soda_can.obj-67b2d8cccf7a0a1a1722a59aa5047956.mesh"]
+
+source_file="res://maps/soda_can.obj"
+dest_files=["res://.godot/imported/soda_can.obj-67b2d8cccf7a0a1a1722a59aa5047956.mesh", "res://.godot/imported/soda_can.obj-67b2d8cccf7a0a1a1722a59aa5047956.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

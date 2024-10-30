@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cahh8nriuv67v"]
+
+[ext_resource type="Texture2D" uid="uid://8nipx80fvro1" path="res://textures/tree/color.png" id="1_us3kw"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_us3kw")
+texture_filter = 0

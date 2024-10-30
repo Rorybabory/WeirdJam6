@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b6fumpef5866w"]
+
+[ext_resource type="Texture2D" uid="uid://duatdp236ss1o" path="res://textures/gradient.png" id="1_0yctg"]
+
+[resource]
+transparency = 1
+albedo_texture = ExtResource("1_0yctg")
+metallic = 1.0
+texture_filter = 0

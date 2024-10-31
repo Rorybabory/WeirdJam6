@@ -6,6 +6,8 @@ extends Node3D
 func _ready() -> void:
 	if (Globals.level < number):
 		queue_free()
+	else:
+		show()
 	pass # Replace with function body.
 
 

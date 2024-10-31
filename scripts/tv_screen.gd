@@ -15,6 +15,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if (Globals.level > 3):
+		get_surface_override_material(0).albedo_texture = textures[4]
+		return
+
 	if (is_static):
 		static_timer += delta
 		if (static_timer > 0.5):

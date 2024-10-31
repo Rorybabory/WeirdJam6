@@ -1,4 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=26 format=3 uid="uid://cc1m2a1obsyn4"]
+
+[ext_resource type="Shader" path="res://postShader.gdshader" id="1_ttqk7"]
+[ext_resource type="Script" path="res://scripts/post.gd" id="2_m6v80"]
+[ext_resource type="AudioStream" uid="uid://dubm4jmajdpfm" path="res://audio/footsteps.wav" id="3_fbxag"]
 
 [sub_resource type="GDScript" id="GDScript_7gldb"]
 script/source = "
@@ -102,6 +106,7 @@ var gravity : float = ProjectSettings.get_setting(\"physics/3d/default_gravity\"
 # Stores mouse input for rotating the camera in the phyhsics process
 var mouseInput : Vector2 = Vector2(0,0)
 
+var footstepTimer = 0.0
 func _ready():
 	#It is safe to comment this line if your game doesn't start with the mouse captured
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -225,7 +230,15 @@ func handle_movement(delta, input_dir):
 	var direction = input_dir.rotated(-HEAD.rotation.y)
 	direction = Vector3(direction.x, 0, direction.y)
 	move_and_slide()
-	
+	if (direction.length() > 0.5 and is_on_floor()):
+		footstepTimer += delta
+		if (footstepTimer > 0.2):
+			footstepTimer = 0
+			$Footsteps.pitch_scale = randf_range(0.85, 1.3)
+			$Footsteps.play()
+		pass
+	else:
+		$Footsteps.stop()
 	if in_air_momentum:
 		if is_on_floor():
 			if motion_smoothing:
@@ -541,6 +554,18 @@ _data = {
 "crouch": SubResource("Animation_5ec5e")
 }
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_oadti"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wn2nw"]
+render_priority = 0
+shader = ExtResource("1_ttqk7")
+shader_parameter/range = 0.05
+shader_parameter/noiseQuality = 250.0
+shader_parameter/noiseIntensity = 0.0088
+shader_parameter/offsetIntensity = 0.03
+shader_parameter/colorOffsetIntensity = 1.3
+shader_parameter/redVal = 0.0
+
 [sub_resource type="Animation" id="Animation_gh776"]
 resource_name = "RESET"
 length = 0.001
@@ -851,6 +876,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera" type="Camera3D" parent="Head"]
 
+[node name="Post" type="MeshInstance3D" parent="Head/Camera"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.100529)
+mesh = SubResource("PlaneMesh_oadti")
+surface_material_override/0 = SubResource("ShaderMaterial_wn2nw")
+script = ExtResource("2_m6v80")
+
 [node name="HeadbobAnimation" type="AnimationPlayer" parent="Head"]
 libraries = {
 "": SubResource("AnimationLibrary_o0unb")
@@ -896,3 +927,7 @@ target_position = Vector3(0, 0.5, 0)
 
 [node name="EditorModule" type="Node" parent="."]
 script = SubResource("GDScript_0w35p")
+
+[node name="Footsteps" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_fbxag")
+volume_db = -46.178

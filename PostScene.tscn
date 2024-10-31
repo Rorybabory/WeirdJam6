@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0d611bvj8phg"]
+
+[ext_resource type="PackedScene" uid="uid://kwg3qkp1id6m" path="res://maps/test_map.tscn" id="1_rot3u"]
+[ext_resource type="Shader" path="res://postShader.gdshader" id="2_26161"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p0xlo"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_26161")
+shader_parameter/range = 0.05
+shader_parameter/noiseQuality = 250.0
+shader_parameter/noiseIntensity = 0.003
+shader_parameter/offsetIntensity = 3.25988e-09
+shader_parameter/colorOffsetIntensity = 0.0
+
+[node name="PostScene" type="Node2D"]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(640, 360)
+
+[node name="TestMap" parent="SubViewport" instance=ExtResource("1_rot3u")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_p0xlo")
+offset_right = 640.0
+offset_bottom = 360.0
